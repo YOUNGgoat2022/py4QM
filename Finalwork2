@@ -1,0 +1,41 @@
+# crawl harverd
+
+import requests
+import bs4
+from bs4 import BeautifulSoup
+import pandas
+url = "https://ocw.mit.edu/courses/8-02x-physics-ii-electricity-magnetism-with-an-experimental-focus-spring-2005/pages/lecture-notes/"
+df = pandas.read_html(url)
+print(df)
+print(33333)
+headers = {"user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/108.0.0.0 Safari/537.36 Edg/108.0.1462.54"}
+response = requests.get(url,headers=headers)
+html = response.text
+soup = BeautifulSoup(html,"lxml")
+#print(33333)
+print(44444)
+contents = soup.find_all(name="table")	# 获取table标签
+#print(contents)
+print(33333)
+menu = BeautifulSoup(contents,"lxml")
+print(11111)
+tr = menu.find_all("tr")
+print(22222)
+for i in tr:
+    tr_bf = BeautifulSoup(str(i),"lxml")
+    #analyse tr
+    td_name = tr_bf.find_all("td", "data-title=TOPICS: ").text()
+    print(td_name)
+
+#把元素copy过来，用txt试一试
+import bs4
+
+from bs4 import BeautifulSoup
+import requests
+url1 = "https://ocw.mit.edu/"
+with open("D:\Python\\raw.txt","r") as contents:
+    tr = contents.find_all(name="tr")
+    for i in tr :
+        td = i.find("td")
+        td_name = td.text
+        print(td_name)
